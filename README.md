@@ -191,61 +191,6 @@ if(PID->Integral < -PID->Irang)                     //积分限幅
 			Moto_PWM_4 = rc_in->thrust + PID_ROL_Rate.OutPut - PID_PIT_Rate.OutPut + PID_YAW_Rate.OutPut;
 ```
 
-1. **Moto_PWM_1 = rc_in->thrust + PID_ROL_Rate.OutPut + PID_PIT_Rate.OutPut - PID_YAW_Rate.OutPut;**
-
-- **位置**：电机1位于前左（逆时针旋转）。
-
-- 分析
-
-  ：
-
-  - `+ PID_ROL_Rate.OutPut`：增加横滚角，使无人机向右倾斜。
-  - `+ PID_PIT_Rate.OutPut`：增加俯仰角，使无人机向前倾斜。
-  - `- PID_YAW_Rate.OutPut`：减小偏航角，抵消逆时针旋转的趋势。
-
-- **效果**：控制无人机向前右方向移动并稳定偏航。
-
-2. **Moto_PWM_2 = rc_in->thrust - PID_ROL_Rate.OutPut + PID_PIT_Rate.OutPut + PID_YAW_Rate.OutPut;**
-
-- **位置**：电机2位于前右（顺时针旋转）。
-
-- 分析
-
-  ：
-
-  - `- PID_ROL_Rate.OutPut`：减小横滚角，使无人机向左倾斜。
-  - `+ PID_PIT_Rate.OutPut`：增加俯仰角，使无人机向前倾斜。
-  - `+ PID_YAW_Rate.OutPut`：增加偏航角，增强顺时针旋转的趋势。
-
-- **效果**：控制无人机向前左方向移动并强化偏航。
-
-3. **Moto_PWM_3 = rc_in->thrust - PID_ROL_Rate.OutPut - PID_PIT_Rate.OutPut - PID_YAW_Rate.OutPut;**
-
-- **位置**：电机3位于后右（逆时针旋转）。
-
-- 分析
-
-  ：
-
-  - `- PID_ROL_Rate.OutPut`：减小横滚角，使无人机向左倾斜。
-  - `- PID_PIT_Rate.OutPut`：减小俯仰角，使无人机向后倾斜。
-  - `- PID_YAW_Rate.OutPut`：减小偏航角，抵消逆时针旋转的趋势。
-
-- **效果**：控制无人机向后左方向移动并稳定偏航。
-
-4. **Moto_PWM_4 = rc_in->thrust + PID_ROL_Rate.OutPut - PID_PIT_Rate.OutPut + PID_YAW_Rate.OutPut;**
-
-- **位置**：电机4位于后左（顺时针旋转）。
-
-- 分析
-
-  ：
-
-  - `+ PID_ROL_Rate.OutPut`：增加横滚角，使无人机向右倾斜。
-  - `- PID_PIT_Rate.OutPut`：减小俯仰角，使无人机向后倾斜。
-  - `+ PID_YAW_Rate.OutPut`：增加偏航角，增强顺时针旋转的趋势。
-
-- **效果**：控制无人机向后右方向移动并强化偏航。
 
 ### **总结**
 
@@ -346,14 +291,13 @@ if(PID->Integral < -PID->Irang)                     //积分限幅
 
 ## 4.卡尔曼滤波
 
-为了在 `IMU.c` 文件中加入卡尔曼滤波，需要以下几个步骤：
+在 `IMU.c` 文件中加入卡尔曼滤波：
 
 1. 定义卡尔曼滤波器的状态变量和协方差矩阵。
 2. 编写初始化卡尔曼滤波器的函数。
 3. 编写卡尔曼滤波更新的函数。
 4. 在姿态解算过程中使用卡尔曼滤波。
 
-以下是具体的实现步骤和示例代码：
 
 ### 1. 定义卡尔曼滤波器的状态变量和协方差矩阵
 
@@ -466,7 +410,7 @@ void IMU_AHRSupdate(float gx, float gy, float gz, float ax, float ay, float az, 
 
 结论
 
-通过上述步骤，将卡尔曼滤波添加到 `IMU.c` 文件中，可以更准确地进行姿态解算。卡尔曼滤波器通过结合预测模型和测量数据，能够有效地滤除噪声，提高姿态角的估计精度。
+将卡尔曼滤波添加到 `IMU.c` 文件中，可以更准确地进行姿态解算。卡尔曼滤波器通过结合预测模型和测量数据，能够有效地滤除噪声，提高姿态角的估计精度。
 
 🌐 Sources
 

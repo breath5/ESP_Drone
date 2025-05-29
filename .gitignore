@@ -1,0 +1,8 @@
+# 忽略 build 文件夹
+build/
+
+# 忽略 esp_idf_components 文件夹
+esp_idf_components/
+
+# 忽略 .idea 文件夹
+.idea/
